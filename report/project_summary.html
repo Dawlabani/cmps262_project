@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Summary - Employment Status Prediction & Unemployment Risk Profiling</title>
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      line-height: 1.4;
+      margin: 48px;
+      color: #111;
+    }
+    h1, h2 {
+      margin-bottom: 0.2em;
+    }
+    h1 {
+      font-size: 22pt;
+      text-align: center;
+    }
+    h2 {
+      font-size: 15pt;
+      margin-top: 1.2em;
+    }
+    p, li {
+      font-size: 11pt;
+    }
+    .meta {
+      text-align: center;
+      margin-bottom: 1.4em;
+    }
+    ul {
+      margin-top: 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Project Summary</h1>
+  <div class="meta">
+    <p><strong>Employment Status Prediction &amp; Unemployment Risk Profiling</strong></p>
+    <p>CMPS 262 Capstone | Yeol Ban and Charbel Dawlabani | Spring 2026</p>
+  </div>
+
+  <h2>Overview</h2>
+  <p>
+    This project built a machine learning system to predict whether a U.S. labor-force participant is
+    employed or unemployed using demographic and household information from the December 2025 Current
+    Population Survey. The main goal was not only to classify employment status, but also to identify
+    which groups face the highest unemployment risk and explain why those risks appear.
+  </p>
+
+  <h2>Data Used</h2>
+  <p>
+    The team used December 2025 CPS Basic Monthly microdata with about 121,000 original records. After
+    filtering out people under 16, individuals not in the labor force, and armed forces personnel, the
+    final modeling dataset contained 44,544 records. The unemployment rate in this filtered dataset was
+    3.82%, making the task a highly imbalanced classification problem.
+  </p>
+  <p>The features used included:</p>
+  <ul>
+    <li>Age and age bands</li>
+    <li>Education level</li>
+    <li>Sex</li>
+    <li>Race and Hispanic origin</li>
+    <li>Marital status</li>
+    <li>Census region</li>
+    <li>Citizenship status</li>
+    <li>Family income bracket</li>
+  </ul>
+
+  <h2>Exploratory Analysis</h2>
+  <p>
+    The exploratory data analysis showed several strong patterns. Younger workers, especially ages 16 to
+    19, had unemployment rates much higher than prime-age workers. Lower education levels were also
+    strongly associated with unemployment. Black and Hispanic workers showed higher unemployment rates
+    than White and Asian workers. The most important interaction observed was that young individuals with
+    low education faced especially elevated unemployment risk.
+  </p>
+
+  <h2>Modeling Approach</h2>
+  <p>
+    Two supervised learning models were trained: logistic regression and random forest. Logistic
+    regression was selected as the main model because it is easier to interpret, which is important for
+    risk profiling. Random forest was included as a comparison model to capture possible nonlinear
+    relationships. The project used an 80/20 stratified train-test split along with 5-fold stratified
+    cross-validation to evaluate model stability.
+  </p>
+  <p>
+    Because the dataset was strongly imbalanced, the team also applied calibration and threshold tuning.
+    Isotonic calibration improved probability reliability, and threshold selection was optimized for the
+    unemployed class instead of using the default 0.5 cutoff.
+  </p>
+
+  <h2>Key Results</h2>
+  <ul>
+    <li>The primary calibrated logistic regression model achieved an F1 score of 0.19 for the unemployed class.</li>
+    <li>The model reached a ROC-AUC of about 0.72, showing useful ranking ability.</li>
+    <li>Threshold tuning improved the minority-class F1 score by roughly 38% compared with the default threshold.</li>
+    <li>Population-weighted evaluation closely matched unweighted results, suggesting the findings are representative.</li>
+    <li>Logistic regression and random forest performed similarly, indicating the signal is largely linear and additive.</li>
+  </ul>
+
+  <h2>Main Risk Factors</h2>
+  <p>
+    The model identified several major drivers of unemployment risk. The strongest risk-increasing factors
+    were low education, lower family income, Black race, certain regional effects, and some marital-status
+    categories. The strongest protective factors were being in prime working ages, having higher income,
+    and holding higher educational credentials. Overall, family income and age were the most influential
+    features.
+  </p>
+
+  <h2>Interpretability</h2>
+  <p>
+    SHAP explanations were used to interpret both global patterns and individual predictions. These
+    explanations helped confirm the model's main feature rankings and made it possible to show why a
+    specific person received a high-risk or low-risk unemployment prediction. This makes the system more
+    transparent and easier to audit.
+  </p>
+
+  <h2>Conclusions</h2>
+  <p>
+    The project demonstrated that unemployment risk can be meaningfully predicted using demographic and
+    household characteristics, even in a highly imbalanced setting. The model is most useful for risk
+    stratification and demographic profiling rather than exact high-precision individual targeting.
+    Findings aligned well with established labor-economics patterns, especially the importance of age,
+    education, and income.
+  </p>
+
+  <h2>Limitations and Future Work</h2>
+  <ul>
+    <li>The analysis used only a single month of CPS data, so it does not capture time trends.</li>
+    <li>The feature set did not include industry, occupation, or local labor market information.</li>
+    <li>The model identifies associations rather than causal effects.</li>
+    <li>Future work could extend the study across multiple months, add richer labor-market features, and include fairness analysis.</li>
+  </ul>
+</body>
+</html>
